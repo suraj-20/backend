@@ -56,7 +56,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
 
     res.json({
       success: 1,
-      image_url: `http://localhost:3000/images/${req.file.filename}`,
+      image_url: `https://backend-eoj7.onrender.com/images/${req.file.filename}`,
     });
   } catch (error) {
     console.error("Error uploading file:", error);

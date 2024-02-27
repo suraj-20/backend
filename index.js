@@ -5,7 +5,6 @@ const { connectMognoDb } = require("./config/mongodb");
 const cors = require("cors");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
-const fs = require("fs");
 
 const productRoute = require("./routes/product");
 const userRoute = require("./routes/user.js");
@@ -14,7 +13,6 @@ const {
   checkForAuthenticationCookie,
   fetchUser,
 } = require("./middlewares/auth.js");
-const Product = require("./models/product.js");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -56,19 +54,9 @@ app.post("/upload", upload.single("product"), (req, res) => {
 
     console.log("File uploaded successfully");
 
-    const obj = new Product({
-      image: {
-        data: fs.readFileSync(req.file.path),
-        contentType: "image/png",
-      },
-    });
-
-    const data = obj.save();
-
     res.json({
       success: 1,
-      // image_url: `https://backend-eoj7.onrender.com/images/${req.file.filename}`,
-      data,
+      image_url: `https://backend-eoj7.onrender.com/images/${req.file.filename}`,
     });
   } catch (error) {
     console.error("Error uploading file:", error);

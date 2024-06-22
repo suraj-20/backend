@@ -49,19 +49,20 @@ userSchema.static(
   "matchPasswordAndGenerateToken",
   async function (email, password) {
     const user = await this.findOne({ email });
+    console.log("user", user);
 
     if (!user) throw new Error("User not found!");
 
     const salt = user.salt;
     const hashedPassword = user.password;
 
-    //   console.log("hashedPassword", hashedPassword);
+      console.log("hashedPassword", hashedPassword);
 
     const userProvidedHash = createHmac("sha256", salt)
       .update(password)
       .digest("hex");
 
-    //   console.log("userProvidedHash", userProvidedHash);
+      console.log("userProvidedHash", userProvidedHash);
 
     if (hashedPassword !== userProvidedHash)
       throw new Error("Incorrect Password");

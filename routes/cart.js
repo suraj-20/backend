@@ -4,7 +4,7 @@ const User = require("../models/user");
 const router = express.Router();
 
 router.post("/addToCart", async (req, res) => {
-//   console.log(req.body, req.user);
+  console.log(req.body, req.user);
 
   const userData = await User.findOne({ _id: req.user._id });
   userData.cartData[req.body.itemId] += 1;
